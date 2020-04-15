@@ -3,6 +3,7 @@
 
 using namespace std;
 
+bool option1Check = false;
 
 struct CARS
 {
@@ -128,40 +129,79 @@ void deleteCarID(CARS* car,int& carCount)
 bool showMainMenu(CARS car[], int& carCount) {
 
 	int choice;
-	cout << "\nChoose an option from the menu below:" << endl;
-	cout << "1. Insert car." << endl;
-	cout << "2. Car list." << endl;
-	cout << "3. Delete a car" << endl;
-  cout<< "4. Delete car by ID"<<endl;;
-	cout << "9. Exit." << endl;
-	cout << "Enter the option, which you want to use: ";
+	bool quit = false;
+	do {
+		if (option1Check == false)
+		{
+			cout << "\nChoose an option from the menu below:" << endl;
+			cout << "1. Insert car." << endl;
+			cout << "2. Car list. (Do option 1 first!)" << endl;
+			cout << "3. Delete a car (Do option 1 first!)" << endl;
+			cout << "4. Delete car by ID (Do option 1 first!)" << endl;
+			cout << "9. Exit." << endl;
+			cout << "Enter the option, which you want to use: ";
+		}
+		else if (option1Check == true)
+		{
+			cout << endl;
+			cout << "\nChoose an option from the menu below:" << endl;
+			cout << "1. Insert car." << endl;
+			cout << "2. Car list." << endl;
+			cout << "3. Delete a car." << endl;
+			cout << "4. Delete car by ID." << endl;
+			cout << "9. Exit." << endl;
+			cout << "Enter the option, which you want to use: ";
+		}
+		cin >> choice;
 
-	cin >> choice;
+		switch (choice)
+		{
+		case 1:
+			insertCar(car, carCount);
+			break;
+		case 2:
+			if (option1Check == false)
+			{
+				cout << "Do option 1 first!" << endl;
+				break;
+			}
+			else if (option1Check == true)
+			{
+				showAllCars(car, carCount);
+				break;
+			}
+		case 3:
+			if (option1Check == false)
+			{
+				cout << "Do option 1 first!" << endl;
+				break;
+			}
+			else if (option1Check == true)
+			{
+				deleteCar(car, carCount);
+				break;
+			}
+		case 4:
+			if (option1Check == false)
+			{
+				cout << "Do option 1 first!" << endl;
+				break;
+			}
+			else if (option1Check == true)
+			{
+				deleteCarID(car, carCount);
+				break;
+			}
+		case 9:
+			return false;
+		}
 
-	switch (choice)
-	{
-	case 1:
-		insertCar(car, carCount);
-		break;
-	case 2:
-		showAllCars(car, carCount);
-		break;
-	case 3:
 
-		deleteCar(car, carCount);
-		break;
-  case 4:
-    deleteCarID(car, carCount);
-    break;
 
-	case 9:
-		return false;
-	}
-
+	} while (quit == false);
+	
 	return true;
 }
-
-
 
 int main()
 {
@@ -169,10 +209,10 @@ int main()
 
 	CARS car[10];
 
-
 	bool doShowMenu = true;
 
 	do {
 		doShowMenu = showMainMenu(car, carCount);
 	} while (doShowMenu);
+
 }
