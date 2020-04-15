@@ -100,6 +100,69 @@ void deleteCarMenu(CARS car[], int& carCount)
 	deleteCar(car, carCount);
 }
 
+int carByID(CARS* car,int& carCount)
+{
+  
+  for(int i=0;i<carCount;i++)
+  {
+    cout<<"Enter the carID you want to delete: ";
+    cin>>car[i].ID;
+    if(car[i].ID==car[i].ID)
+    {
+      return i;
+    }
+  }
+  return -1;
+}
+
+void deleteCarID(CARS* car,int& carCount)
+{
+  int index= carByID(car,carCount);
+  for(int i= index; i< carCount; i++)
+  {
+    car[i]=car[i+1];
+  }
+  carCount--;
+}
+
+bool showMainMenu(CARS car[], int& carCount) {
+
+	int choice;
+	cout << "\nChoose an option from the menu below:" << endl;
+	cout << "1. Insert car." << endl;
+	cout << "2. Car list." << endl;
+	cout << "3. Delete a car" << endl;
+  cout<< "4. Delete car by ID"<<endl;;
+	cout << "9. Exit." << endl;
+	cout << "Enter the option, which you want to use: ";
+
+	cin >> choice;
+
+	switch (choice)
+	{
+	case 1:
+		insertCar(car, carCount);
+		break;
+	case 2:
+		showAllCars(car, carCount);
+		break;
+	case 3:
+
+		deleteCar(car, carCount);
+		break;
+  case 4:
+    deleteCarID(car, carCount);
+    break;
+
+	case 9:
+		return false;
+	}
+
+	return true;
+}
+
+
+
 int main()
 {
 	int carCount = 0;
