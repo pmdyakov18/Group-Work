@@ -1,3 +1,4 @@
+
 #include <iostream>
 #include <string>
 
@@ -11,12 +12,12 @@ struct CARS
 	int yearOfCreation;
 	string manufacturer;
 	int carPrice;
-  int ID;
+	int ID;
 };
 
 void insertCar(CARS car[], int& carCount)
 {
-
+	
 	cout << "\nEnter Car Model: ";
 	cin >> car[carCount].carModel;
 
@@ -24,13 +25,14 @@ void insertCar(CARS car[], int& carCount)
 	cin >> car[carCount].yearOfCreation;
 
 	cout << "\nEnter manufacturer: ";
-	cin >> car[carCount].manufacturer;
+	cin>>(car[carCount].manufacturer);
 
 	cout << "\nEnter Car Price: ";
 	cin >> car[carCount].carPrice;
 
-  cout<<"Enter Car ID: ";
-  cin>>car[carCount].ID;
+	
+	cout << "\nEnter Car ID: ";
+	cin >> car[carCount].ID;
 
 
 
@@ -41,14 +43,23 @@ void insertCar(CARS car[], int& carCount)
 
 void showCars(CARS car)
 {
-		cout << "\nManufacturer: " << car.manufacturer << endl;
-		cout << "Model: " << car.carModel << endl;
-		cout << "Price: " << car.carPrice << endl;
-		cout << "Year of creation: " << car.yearOfCreation << endl;
-		cout << endl;
-	
-}
+	cout << "\nManufacturer: " << car.manufacturer << endl;
+	cout << "Model: " << car.carModel << endl;
+	cout << "Price: " << car.carPrice << endl;
+	cout << "Year of creation: " << car.yearOfCreation << endl;
+	cout << endl;
 
+}
+void showCarsManager(CARS car)
+{
+	cout << "\nID: " << car.ID << endl;
+	cout << "Manufacturer: " << car.manufacturer << endl;
+	cout << "Model: " << car.carModel << endl;
+	cout << "Price: " << car.carPrice << endl;
+	cout << "Year of creation: " << car.yearOfCreation << endl;
+	cout << endl;
+
+}
 void showAllCars(CARS car[], int carCount)
 {
 
@@ -59,9 +70,16 @@ void showAllCars(CARS car[], int carCount)
 		showCars(car[i]);
 	}
 }
+void showAllCarsManager(CARS car[], int carCount)
+{
 
+	cout << "\nYou have entered the following cars:" << endl;
 
-
+	for (int i = 0; i < carCount; i++)
+	{
+		showCarsManager(car[i]);
+	}
+}
 void deleteCar(CARS car[], int& carCount)
 {
 	string carModel;
@@ -101,29 +119,29 @@ void deleteCarMenu(CARS car[], int& carCount)
 	deleteCar(car, carCount);
 }
 
-int carByID(CARS* car,int& carCount)
+int carByID(CARS* car, int& carCount)
 {
-  
-  for(int i=0;i<carCount;i++)
-  {
-    cout<<"Enter the carID you want to delete: ";
-    cin>>car[i].ID;
-    if(car[i].ID==car[i].ID)
-    {
-      return i;
-    }
-  }
-  return -1;
+
+	for (int i = 0; i < carCount; i++)
+	{
+		cout << "Enter the carID you want to delete: ";
+		cin >> car[i].ID;
+		if (car[i].ID == car[i].ID)
+		{
+			return i;
+		}
+	}
+	return -1;
 }
 
-void deleteCarID(CARS* car,int& carCount)
+void deleteCarID(CARS* car, int& carCount)
 {
-  int index= carByID(car,carCount);
-  for(int i= index; i< carCount; i++)
-  {
-    car[i]=car[i+1];
-  }
-  carCount--;
+	int index = carByID(car, carCount);
+	for (int i = index; i < carCount; i++)
+	{
+		car[i] = car[i + 1];
+	}
+	carCount--;
 }
 
 bool showMainMenu(CARS car[], int& carCount) {
@@ -136,8 +154,9 @@ bool showMainMenu(CARS car[], int& carCount) {
 			cout << "\nChoose an option from the menu below:" << endl;
 			cout << "1. Insert car." << endl;
 			cout << "2. Car list. (Do option 1 first!)" << endl;
-			cout << "3. Delete a car (Do option 1 first!)" << endl;
-			cout << "4. Delete car by ID (Do option 1 first!)" << endl;
+			cout << "3. Car list(Manager). (Do option 1 first!)" << endl;
+			cout << "4. Delete a car (Do option 1 first!)" << endl;
+			cout << "5. Delete car by ID (Do option 1 first!)" << endl;
 			cout << "9. Exit." << endl;
 			cout << "Enter the option, which you want to use: ";
 		}
@@ -147,8 +166,9 @@ bool showMainMenu(CARS car[], int& carCount) {
 			cout << "\nChoose an option from the menu below:" << endl;
 			cout << "1. Insert car." << endl;
 			cout << "2. Car list." << endl;
-			cout << "3. Delete a car." << endl;
-			cout << "4. Delete car by ID." << endl;
+			cout << "3. Car list(Manager)." << endl;
+			cout << "4. Delete a car." << endl;
+			cout << "5. Delete car by ID." << endl;
 			cout << "9. Exit." << endl;
 			cout << "Enter the option, which you want to use: ";
 		}
@@ -158,6 +178,7 @@ bool showMainMenu(CARS car[], int& carCount) {
 		{
 		case 1:
 			insertCar(car, carCount);
+			option1Check = true;
 			break;
 		case 2:
 			if (option1Check == false)
@@ -178,10 +199,22 @@ bool showMainMenu(CARS car[], int& carCount) {
 			}
 			else if (option1Check == true)
 			{
-				deleteCar(car, carCount);
+				showAllCarsManager(car, carCount);
 				break;
 			}
 		case 4:
+			
+			if (option1Check == false)
+			{
+				cout << "Do option 1 first!" << endl;
+				break;
+			}
+			else if (option1Check == true)
+			{
+				deleteCar(car, carCount);
+				break;
+			}
+		case 5:
 			if (option1Check == false)
 			{
 				cout << "Do option 1 first!" << endl;
@@ -199,7 +232,7 @@ bool showMainMenu(CARS car[], int& carCount) {
 
 
 	} while (quit == false);
-	
+
 	return true;
 }
 
