@@ -174,6 +174,17 @@ bool showMainMenu(CARS car[], int& carCount) {
 			cout << "Enter the option, which you want to use: ";
 		}
 		cin >> choice;
+		if (choice != 1 || choice != 2 || choice != 3 || choice != 4 || choice != 5 || choice != 9)
+		{
+			cout << endl;
+			cout << "Incorrect Input, please restart the program!";
+			cout << endl;
+
+			return 0;
+		}
+		
+		else if (choice == 1 || choice == 2 || choice == 3 || choice == 4 || choice == 5 || choice == 9)
+		{
 
 		switch (choice)
 		{
@@ -230,7 +241,7 @@ bool showMainMenu(CARS car[], int& carCount) {
 			return false;
 		}
 
-
+	    }
 
 	} while (quit == false);
 
