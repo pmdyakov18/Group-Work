@@ -1,4 +1,3 @@
-
 #include <iostream>
 #include <string>
 
@@ -18,7 +17,7 @@ struct CARS
 
 void insertCar(CARS car[], int& carCount)
 {
-	
+
 	cout << "\nEnter Car Model: ";
 	cin >> car[carCount].carModel;
 
@@ -26,12 +25,12 @@ void insertCar(CARS car[], int& carCount)
 	cin >> car[carCount].yearOfCreation;
 
 	cout << "\nEnter manufacturer: ";
-	cin>>(car[carCount].manufacturer);
+	cin >> (car[carCount].manufacturer);
 
 	cout << "\nEnter Car Price: ";
 	cin >> car[carCount].carPrice;
 
-	
+
 	cout << "\nEnter Car ID: ";
 	cin >> car[carCount].ID;
 
@@ -174,76 +173,63 @@ bool showMainMenu(CARS car[], int& carCount) {
 			cout << "Enter the option, which you want to use: ";
 		}
 		cin >> choice;
-		if (choice != 1 || choice != 2 || choice != 3 || choice != 4 || choice != 5 || choice != 9)
-		{
-			cout << endl;
-			cout << "Incorrect Input, please restart the program!";
-			cout << endl;
 
-			return 0;
-		}
-		
-		else if (choice == 1 || choice == 2 || choice == 3 || choice == 4 || choice == 5 || choice == 9)
-		{
+			switch (choice)
+			{
+			case 1:
+				insertCar(car, carCount);
+				option1Check = true;
+				break;
+			case 2:
+				if (option1Check == false)
+				{
+					cout << "Do option 1 first!" << endl;
+					break;
+				}
+				else if (option1Check == true)
+				{
+					showAllCars(car, carCount);
+					break;
+				}
+			case 3:
+				if (option1Check == false)
+				{
+					cout << "Do option 1 first!" << endl;
+					break;
+				}
+				else if (option1Check == true)
+				{
+					showAllCarsManager(car, carCount);
+					break;
+				}
+			case 4:
 
-		switch (choice)
-		{
-		case 1:
-			insertCar(car, carCount);
-			option1Check = true;
-			break;
-		case 2:
-			if (option1Check == false)
-			{
-				cout << "Do option 1 first!" << endl;
-				break;
+				if (option1Check == false)
+				{
+					cout << "Do option 1 first!" << endl;
+					break;
+				}
+				else if (option1Check == true)
+				{
+					deleteCar(car, carCount);
+					break;
+				}
+			case 5:
+				if (option1Check == false)
+				{
+					cout << "Do option 1 first!" << endl;
+					break;
+				}
+				else if (option1Check == true)
+				{
+					deleteCarID(car, carCount);
+					break;
+				}
+			case 9:
+				return false;
 			}
-			else if (option1Check == true)
-			{
-				showAllCars(car, carCount);
-				break;
-			}
-		case 3:
-			if (option1Check == false)
-			{
-				cout << "Do option 1 first!" << endl;
-				break;
-			}
-			else if (option1Check == true)
-			{
-				showAllCarsManager(car, carCount);
-				break;
-			}
-		case 4:
-			
-			if (option1Check == false)
-			{
-				cout << "Do option 1 first!" << endl;
-				break;
-			}
-			else if (option1Check == true)
-			{
-				deleteCar(car, carCount);
-				break;
-			}
-		case 5:
-			if (option1Check == false)
-			{
-				cout << "Do option 1 first!" << endl;
-				break;
-			}
-			else if (option1Check == true)
-			{
-				deleteCarID(car, carCount);
-				break;
-			}
-		case 9:
-			return false;
-		}
 
-	    }
-
-	} while (quit == false);
+		} while (quit == false);
 
 	return true;
 }
