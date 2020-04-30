@@ -1,13 +1,10 @@
-// ConsoleApplication25.cpp : This file contains the 'main' function. Program execution begins and ends there.
-//
-
 #include <iostream>
 #include <string>
 using namespace std;
 bool option1Check = false;
 struct CARS {
 	int tableNumber = 0;
-	string carShow ;
+	string carShow;
 	string manifacturer;
 	double total = 0;
 	int timeTaken = 0;
@@ -15,17 +12,19 @@ struct CARS {
 	int monthlyIncome;
 	int yeartOfManidacture;
 };
+
 void createCar(CARS* cars, int& carCount, CARS newOrder, int& maxId) {
 	newOrder.id = maxId;
 	cars[carCount] = newOrder;
 	carCount++;
 	maxId++;
 }
+
 int getCarById(CARS* cars, int& carCount, int id)
 {
 	for (int i = 0; i < carCount; i++)
 	{
-		if (cars[i].id == id) 
+		if (cars[i].id == id)
 		{
 			return i;
 		}
@@ -33,7 +32,7 @@ int getCarById(CARS* cars, int& carCount, int id)
 
 	return -1;
 }
-void updateCars(CARS* cars, int& carCount, CARS newCar, int& maxId) 
+void updateCars(CARS* cars, int& carCount, CARS newCar, int& maxId)
 {
 	int index = getCarById(cars, carCount, maxId);
 	cars[index] = newCar;
@@ -44,17 +43,17 @@ void deleteCar(CARS* cars, int& carCount, int id) {
 	int index = getCarById(cars, carCount, id);
 	for (int i = index; i < carCount - 1; i++)
 	{
-	cars[i] = cars[i + 1];
+		cars[i] = cars[i + 1];
 	}
 	carCount--;
 
 }
 CARS getOrder(CARS* cars, int& carCount, int id)
 {
-	int index = getCarById( cars, carCount,  id);
+	int index = getCarById(cars, carCount, id);
 	if (index != id)
 	{
-		cout << "Enter calid ID";
+		cout << "Enter valid ID";
 		cin >> index;
 	}
 	return cars[index];
@@ -63,36 +62,36 @@ CARS getOrder(CARS* cars, int& carCount, int id)
 
 void showCarMenu(CARS* cars, int& carCount, int& maxId) {
 
-	cout << "\n List of all the cars: " << endl;
+	cout << "\n List of the cars: " << endl;
 
 	for (int i = 0; i < carCount; i++)
 	{
 		cout << "\nCar name: " << cars[i].carShow << endl;
 		cout << "Manifacturer: " << cars[i].manifacturer << endl;
-		cout << "Show tottle time taken: " << cars[i].timeTaken << endl;
-		cout <<	"Price: " <<cars[i].total << endl;
-		cout << "Yeart of manidacture :" << cars[i].yeartOfManidacture << endl;
+		cout << "Show total time taken: " << cars[i].timeTaken << endl;
+		cout << "Price: " << cars[i].total << endl;
+		cout << "Year of manifacture: " << cars[i].yeartOfManidacture << endl;
 	}
 }
 
 void CarMenu(CARS* cars, int& carCount, int& maxId) {
 	CARS car;
 
-	cout << "Carname name: " ;
+	cout << "Car name: ";
 	cin >> car.carShow;
-	
-	cout << "Manifactirer: ";
+
+	cout << "Manifacturer: ";
 	cin >> car.manifacturer;
-	
-	cout << "Yeart of manidacture :";
-	while (!(cin >> car.yeartOfManidacture))
+
+	cout << "Year of manifacture: ";
+	while (!(cin >> car.yeartOfManidacture ) or car.yeartOfManidacture < 1869)
 	{
 		cin.clear();
 		cin.ignore(INT_MAX, '\n');
-		cout << "\nEnter correct Time: ";
+		cout << "\nEnter correct Year: ";
 	}
 
-	cout << "Time taken: " ;
+	cout << "Time taken(minutes): ";
 	while (!(cin >> car.timeTaken))
 	{
 		cin.clear();
@@ -101,61 +100,60 @@ void CarMenu(CARS* cars, int& carCount, int& maxId) {
 	}
 
 
-	cout << "Total prize: " ;
-	while (!(cin >> car.total
-		))
+	cout << "Total prize($): ";
+	while (!(cin >> car.total))
 	{
 		cin.clear();
 		cin.ignore(INT_MAX, '\n');
-		cout << "\nEnter correct ID: ";
+		cout << "\nEnter correct Value: ";
 	}
 
 	createCar(cars, carCount, car, maxId);
 }
 void editOrderMenu(CARS* cars, int& carCount) {
 	int carId;
-	cout << "\nEnter car id: ";
+	cout << "\nEnter car ID: ";
 	cin >> carId;
 
 	CARS car = getOrder(cars, carCount, carId);
 
 	cout << "\n1. Car name: " << endl;
-	cout << "2. Manifactirer: " << endl;
+	cout << "2. Manifacturer: " << endl;
 	cout << "3. Time taken: " << endl;
 	cout << "4. Total prize: " << endl;
-	cout << "Yeart of manidacture : "<<endl;
-	cout << "Which field do you want to edit: ";
+	cout << "Year of manifacture : " << endl;
+	cout << "Which field you want to edit: ";
 
 	int edit;
 	cin >> edit;
 
 	switch (edit) {
 	case 1: {
-		cout << "Car namer: ";
+		cout << "Car name: ";
 		cin >> car.carShow;
-		updateCars(cars, carCount, car,  carId);
+		updateCars(cars, carCount, car, carId);
 		break;
 	}
 	case 2: {
-		cout << "Manifactirer:: ";
+		cout << "Manifacturer: ";
 		cin >> car.manifacturer;
 		updateCars(cars, carCount, car, carId);
 		break;
 	}
 	case 3: {
-		cout << "Time taken: ";
+		cout << "Time taken(minutes): ";
 		cin >> car.timeTaken;
 		updateCars(cars, carCount, car, carId);
 		break;
 	}
 	case 4: {
-		cout << "Total prize: ";
+		cout << "Total prize($): ";
 		cin >> car.total;
 		updateCars(cars, carCount, car, carId);
 		break;
 	}
 	case 5: {
-		cout << "Yeart of manidacture : ";
+		cout << "Year of manifacture: ";
 		cin >> car.yeartOfManidacture;
 		updateCars(cars, carCount, car, carId);
 		break;
@@ -197,18 +195,18 @@ bool showMainMenu(CARS* cars, int& carCount, int& maxId) {
 		break;
 	}
 	case 2: {
-		showCarMenu(cars,carCount,maxId);
+		showCarMenu(cars, carCount, maxId);
 		break;
 	}
 	case 3: {
 		editOrderMenu(cars, carCount);
 		break;
-	}	
+	}
 	case 4: {
 		deleteCarMenu(cars, carCount, maxId);
 		break;
 	}
-		 
+
 	case 9: {
 		return false;
 	}
@@ -231,5 +229,3 @@ int main()
 		mainMenu = showMainMenu(cars, carCount, maxId);
 	} while (mainMenu);
 }
-
-
